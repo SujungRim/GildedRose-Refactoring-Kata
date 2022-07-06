@@ -1,7 +1,6 @@
 package com.gildedrose;
 
 import java.util.Arrays;
-import java.util.List;
 
 class GildedRose {
     Item[] items;
@@ -13,19 +12,63 @@ class GildedRose {
 
     public void updateQuality() {
         Arrays.stream(items)
-            .forEach(item -> {
-                AbstractItemStrategy strategy = this.getStrategy(item);
-                strategy.update(item);
-            });
+            .forEach(this::updateQuality);
     }
 
-    public AbstractItemStrategy getStrategy(Item item) {
+    private void updateQuality(Item item) {
+        ItemUpdateStrategy strategy = getUpdateStrategy(item);
+        strategy.update(item);
+    }
+
+    public static ItemUpdateStrategy getUpdateStrategy(Item item) {
         switch (item.name) {
-            case "Sulfuras, Hand of Ragnaros" : return new SulfurasStrategy();
-            case "Aged Brie": return new AgedBrieStrategy();
-            case "Backstage passes to a TAFKAL80ETC concert": return new BackstageStrategy();
-            case "Conjured Mana Cake": return new ConjuredStrategy();
-            default: return new BasicStrategy();
+            case "Sulfuras, Hand of Ragnaros" :
+                return sulfuras -> {};
+            case "Aged Brie":
+                return agedBrie -> {
+                ItemUpdateStrategy.increaseQuality(agedBrie);
+
+                ItemUpdateStrategy.decreaseSellIn(agedBrie);
+
+                if(agedBrie.sellIn < 0) {
+                    ItemUpdateStrategy.increaseQuality(agedBrie);
+                }
+            };
+            case "Backstage passes to a TAFKAL80ETC concert": return backstage -> {
+                ItemUpdateStrategy.increaseQuality(backstage);
+                if(backstage.sellIn < 11) {
+                    ItemUpdateStrategy.increaseQuality(backstage);
+                }
+                if(backstage.sellIn < 6) {
+                    ItemUpdateStrategy.increaseQuality(backstage);
+                }
+
+                ItemUpdateStrategy.decreaseSellIn(backstage);
+
+                if(backstage.sellIn < 0) {
+                    ItemUpdateStrategy.resetQuality(backstage);
+                }
+            };
+            case "Conjured Mana Cake": return conjured -> {
+                ItemUpdateStrategy.decreaseQuality(item);
+                ItemUpdateStrategy.decreaseQuality(item);
+
+                ItemUpdateStrategy.decreaseSellIn(item);
+
+                if(item.sellIn < 0) {
+                    ItemUpdateStrategy.decreaseQuality(item);
+                    ItemUpdateStrategy.decreaseQuality(item);
+                }
+            };
+            default: return basic -> {
+                ItemUpdateStrategy.decreaseQuality(item);
+
+                ItemUpdateStrategy.decreaseSellIn(item);
+
+                if(item.sellIn < 0) {
+                    ItemUpdateStrategy.decreaseQuality(item);
+                }
+            };
         }
     }
 
