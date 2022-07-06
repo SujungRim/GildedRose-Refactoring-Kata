@@ -5,7 +5,6 @@ import java.util.Arrays;
 class GildedRose {
     Item[] items;
 
-
     public GildedRose(Item[] items) {
         this.items = items;
     }
@@ -16,60 +15,8 @@ class GildedRose {
     }
 
     private void updateQuality(Item item) {
-        ItemUpdateStrategy strategy = getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
-    }
-
-    public static ItemUpdateStrategy getUpdateStrategy(Item item) {
-        switch (item.name) {
-            case "Sulfuras, Hand of Ragnaros" :
-                return sulfuras -> {};
-            case "Aged Brie":
-                return agedBrie -> {
-                ItemUpdateStrategy.increaseQuality(agedBrie);
-
-                ItemUpdateStrategy.decreaseSellIn(agedBrie);
-
-                if(agedBrie.sellIn < 0) {
-                    ItemUpdateStrategy.increaseQuality(agedBrie);
-                }
-            };
-            case "Backstage passes to a TAFKAL80ETC concert": return backstage -> {
-                ItemUpdateStrategy.increaseQuality(backstage);
-                if(backstage.sellIn < 11) {
-                    ItemUpdateStrategy.increaseQuality(backstage);
-                }
-                if(backstage.sellIn < 6) {
-                    ItemUpdateStrategy.increaseQuality(backstage);
-                }
-
-                ItemUpdateStrategy.decreaseSellIn(backstage);
-
-                if(backstage.sellIn < 0) {
-                    ItemUpdateStrategy.resetQuality(backstage);
-                }
-            };
-            case "Conjured Mana Cake": return conjured -> {
-                ItemUpdateStrategy.decreaseQuality(item);
-                ItemUpdateStrategy.decreaseQuality(item);
-
-                ItemUpdateStrategy.decreaseSellIn(item);
-
-                if(item.sellIn < 0) {
-                    ItemUpdateStrategy.decreaseQuality(item);
-                    ItemUpdateStrategy.decreaseQuality(item);
-                }
-            };
-            default: return basic -> {
-                ItemUpdateStrategy.decreaseQuality(item);
-
-                ItemUpdateStrategy.decreaseSellIn(item);
-
-                if(item.sellIn < 0) {
-                    ItemUpdateStrategy.decreaseQuality(item);
-                }
-            };
-        }
     }
 
 

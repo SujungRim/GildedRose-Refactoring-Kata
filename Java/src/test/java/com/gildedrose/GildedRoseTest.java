@@ -27,18 +27,23 @@ class GildedRoseTest {
             new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
             new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
             new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
-            new Item("Conjured Mana Cake", 3, 6)
+            new Item("Conjured Mana Cake", 3, 6),
+            new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
+            new Item("Sulfuras, Hand of Ragnaros", -1, 80),
         };
         // when
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         // then
-        Assertions.assertEquals(9, items[0].sellIn);
-        Assertions.assertEquals(1, items[1].sellIn);
-        Assertions.assertEquals(4, items[2].sellIn);
-        Assertions.assertEquals(14, items[3].sellIn);
-        Assertions.assertEquals(9, items[4].sellIn);
-        Assertions.assertEquals(4, items[5].sellIn);
-        Assertions.assertEquals(2, items[6].sellIn);
+        Assertions.assertEquals(19, items[0].quality);
+        Assertions.assertEquals(1, items[1].quality);
+        Assertions.assertEquals(6, items[2].quality);
+        Assertions.assertEquals(21, items[3].quality);
+        Assertions.assertEquals(50, items[4].quality);
+        Assertions.assertEquals(50, items[5].quality);
+        Assertions.assertEquals(4, items[6].quality);
+        Assertions.assertEquals(80, items[7].quality);
+        Assertions.assertEquals(80, items[8].quality);
+
     }
 }

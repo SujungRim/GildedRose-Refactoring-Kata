@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ItemUpdateStrategyDefaultTest {
+class ItemUpdateStrategyTest {
 
     /**
      * default method test : basic operation
@@ -90,7 +90,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 80;
         Item item = new Item("Sulfuras, Hand of Ragnaros", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn, item.sellIn);
@@ -105,7 +105,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 0;
         Item item = new Item("Aged Brie", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -120,7 +120,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 20;
         Item item = new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -135,7 +135,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 20;
         Item item = new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -150,7 +150,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 20;
         Item item = new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -165,7 +165,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 20;
         Item item = new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -180,7 +180,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 6;
         Item item = new Item("Conjured Mana Cake", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -195,7 +195,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 6;
         Item item = new Item("Conjured Mana Cake", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -210,7 +210,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 20;
         Item item = new Item("+5 Dexterity Vest", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
@@ -225,7 +225,7 @@ class ItemUpdateStrategyDefaultTest {
         int quality = 20;
         Item item = new Item("+5 Dexterity Vest", sellIn, quality); //
         // when
-        ItemUpdateStrategy strategy = GildedRose.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
         // then
         assertEquals(sellIn - 1, item.sellIn);
