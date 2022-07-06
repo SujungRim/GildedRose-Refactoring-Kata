@@ -1,13 +1,34 @@
 package com.gildedrose;
 
 import java.util.Arrays;
+import java.util.List;
 
 class GildedRose {
     Item[] items;
 
+
     public GildedRose(Item[] items) {
         this.items = items;
     }
+
+    public void updateQuality() {
+        Arrays.stream(items)
+            .forEach(item -> {
+                AbstractItemStrategy strategy = this.getStrategy(item);
+                strategy.update(item);
+            });
+    }
+
+    public AbstractItemStrategy getStrategy(Item item) {
+        switch (item.name) {
+            case "Sulfuras, Hand of Ragnaros" : return new SulfurasStrategy();
+            case "Aged Brie": return new AgedBrieStrategy();
+            case "Backstage passes to a TAFKAL80ETC concert": return new BackstageStrategy();
+            case "Conjured Mana Cake": return new ConjuredStrategy();
+            default: return new BasicStrategy();
+        }
+    }
+
 
 //    public void updateQuality() {
 //        for (int i = 0; i < items.length; i++) {
@@ -67,109 +88,5 @@ class GildedRose {
 //            }
 //        }
 //    }
-
-    public void updateQuality() {
-        Arrays.stream(items)
-            .forEach(item -> {
-                UpdateStrategy strategy = this.getStrategy(item);
-                strategy.update(item);
-            });
-    }
-
-    public interface UpdateStrategy {
-        default void update(Item item) {
-            preProcessQuality(item);
-            processSellIn(item);
-            postProcessQuality(item);
-        }
-        void preProcessQuality(Item item);
-        void processSellIn(Item item);
-        void postProcessQuality(Item item);
-    }
-
-    public UpdateStrategy getStrategy(Item item) {
-        switch (item.name) {
-            case "Sulfuras, Hand of Ragnaros" : return new UpdateStrategy() {
-                @Override
-                public void preProcessQuality(Item item) {}
-                @Override
-                public void processSellIn(Item item) {}
-                @Override
-                public void postProcessQuality(Item item) {}
-            };
-            case "Aged Brie": return new UpdateStrategy() {
-                @Override
-                public void preProcessQuality(Item item) {
-                    item.increaseQuality();
-                }
-                @Override
-                public void processSellIn(Item item) {
-                    item.decreaseSellIn();
-                }
-                @Override
-                public void postProcessQuality(Item item) {
-                    if(item.sellIn < 0) {
-                        item.increaseQuality();
-                    }
-                }
-            };
-            case "Backstage passes to a TAFKAL80ETC concert": return new UpdateStrategy() {
-                @Override
-                public void preProcessQuality(Item item) {
-                    item.increaseQuality();
-                    if(item.sellIn < 11) {
-                        item.increaseQuality();
-                    }
-                    if(item.sellIn < 6) {
-                        item.increaseQuality();
-                    }
-                }
-                @Override
-                public void processSellIn(Item item) {
-                    item.decreaseSellIn();
-                }
-                @Override
-                public void postProcessQuality(Item item) {
-                    if(item.sellIn < 0) {
-                        item.resetQuality();
-                    }
-                }
-            };
-            case "Conjured Mana Cake": return new UpdateStrategy() {
-                @Override
-                public void preProcessQuality(Item item) {
-                    item.decreaseQuality();
-                    item.decreaseQuality();
-                }
-                @Override
-                public void processSellIn(Item item) {
-                    item.decreaseSellIn();
-                }
-                @Override
-                public void postProcessQuality(Item item) {
-                    if(item.sellIn < 0) {
-                        item.decreaseQuality();
-                        item.decreaseQuality();
-                    }
-                }
-            };
-            default: return new UpdateStrategy() {
-                @Override
-                public void preProcessQuality(Item item) {
-                    item.decreaseQuality();
-                }
-                @Override
-                public void processSellIn(Item item) {
-                    item.decreaseSellIn();
-                }
-                @Override
-                public void postProcessQuality(Item item) {
-                    if(item.sellIn < 0) {
-                        item.decreaseQuality();
-                    }
-                }
-            };
-        }
-    }
 
 }

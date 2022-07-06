@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ItemTest {
+class AbstractItemStrategyTest {
 
     @DisplayName("판매기한 감소 - 1 정상 감소")
     @Test
@@ -13,7 +13,7 @@ class ItemTest {
         // given
         Item item = new Item("none", 1, 1);
         // when
-        item.decreaseSellIn();
+        AbstractItemStrategy.decreaseSellIn(item);
         // then
         assertEquals(0, item.sellIn);
     }
@@ -24,7 +24,7 @@ class ItemTest {
         // given
         Item item = new Item("none", 1, 1);
         // when
-        item.decreaseQuality();
+        AbstractItemStrategy.decreaseQuality(item);
         // then
         assertEquals(0, item.quality);
     }
@@ -35,7 +35,7 @@ class ItemTest {
         // given
         Item item = new Item("none", 1, 0);
         // when
-        item.decreaseQuality();
+        AbstractItemStrategy.decreaseQuality(item);
         // then
         assertEquals(0, item.quality);
     }
@@ -46,7 +46,7 @@ class ItemTest {
         // given
         Item item = new Item("none", 1, 10);
         // when
-        item.resetQuality();
+        AbstractItemStrategy.resetQuality(item);
         // then
         assertEquals(0, item.quality);
     }
@@ -57,7 +57,7 @@ class ItemTest {
         // given
         Item item = new Item("none", 1, 0);
         // when
-        item.increaseQuality();
+        AbstractItemStrategy.increaseQuality(item);
         // then
         assertEquals(1, item.quality);
     }
@@ -68,7 +68,7 @@ class ItemTest {
         // given
         Item item = new Item("none", 1, 50);
         // when
-        item.increaseQuality();
+        AbstractItemStrategy.increaseQuality(item);
         // then
         assertEquals(50, item.quality);
     }
