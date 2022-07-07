@@ -14,11 +14,11 @@ class GildedRoseTest {
         Item[] items = new Item[] { new Item("foo", 0, 0) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals("fixme", app.items[0].name);
+        assertEquals("foo", app.items[0].name);
     }
 
     @Test
-    void Given_AllItem_When_UpdateQuality_Then_SellInDecreaseBy1() {
+    void Given_AllItem_When_UpdateQuality_Then_VaryIn_SellInAndQuality() {
         // given
         Item[] items = new Item[]{
             new Item("+5 Dexterity Vest", 10, 20), //
@@ -35,14 +35,31 @@ class GildedRoseTest {
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         // then
+        Assertions.assertEquals(9, items[0].sellIn);
         Assertions.assertEquals(19, items[0].quality);
+
+        Assertions.assertEquals(1, items[1].sellIn);
         Assertions.assertEquals(1, items[1].quality);
+
+        Assertions.assertEquals(4, items[2].sellIn);
         Assertions.assertEquals(6, items[2].quality);
+
+        Assertions.assertEquals(14, items[3].sellIn);
         Assertions.assertEquals(21, items[3].quality);
+
+        Assertions.assertEquals(9, items[4].sellIn);
         Assertions.assertEquals(50, items[4].quality);
+
+        Assertions.assertEquals(4, items[5].sellIn);
         Assertions.assertEquals(50, items[5].quality);
+
+        Assertions.assertEquals(4, items[6].sellIn);
         Assertions.assertEquals(4, items[6].quality);
+
+        Assertions.assertEquals(0, items[7].sellIn);
         Assertions.assertEquals(80, items[7].quality);
+
+        Assertions.assertEquals(-1, items[8].sellIn);
         Assertions.assertEquals(80, items[8].quality);
 
     }

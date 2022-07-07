@@ -1,9 +1,13 @@
 package com.gildedrose;
 
+import com.gildedrose.strategy.ItemStrategyFactory;
+import com.gildedrose.strategy.ItemUpdateStrategy;
+
 import java.util.Arrays;
 
 class GildedRose {
     Item[] items;
+    ItemStrategyFactory itemStrategyFactory = ItemStrategyFactory.create();
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -15,7 +19,7 @@ class GildedRose {
     }
 
     private void updateQuality(Item item) {
-        ItemUpdateStrategy strategy = ItemStrategyFactory.getUpdateStrategy(item);
+        ItemUpdateStrategy strategy = itemStrategyFactory.getUpdateStrategy(item);
         strategy.update(item);
     }
 
